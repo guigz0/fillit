@@ -6,11 +6,11 @@
 /*   By: cmouyeme <cmouyeme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 17:31:17 by cmouyeme          #+#    #+#             */
-/*   Updated: 2019/04/26 17:31:53 by cmouyeme         ###   ########.fr       */
+/*   Updated: 2019/04/26 18:47:42 by gdalard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int main(int argc, char const *argv[])
 {
-	return 0;
+	return 4;
 }
