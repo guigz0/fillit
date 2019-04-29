@@ -6,10 +6,11 @@
 /*   By: cmouyeme <cmouyeme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 22:55:27 by cmouyeme          #+#    #+#             */
-/*   Updated: 2019/04/26 23:17:02 by cmouyeme         ###   ########.fr       */
+/*   Updated: 2019/04/29 16:50:20 by cmouyeme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+#include <unistd.h>
 
 
