@@ -6,7 +6,7 @@
 /*   By: cmouyeme <cmouyeme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 22:55:27 by cmouyeme          #+#    #+#             */
-/*   Updated: 2019/05/02 19:19:13 by gdalard          ###   ########.fr       */
+/*   Updated: 2019/05/02 22:41:50 by gdalard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,25 @@ int		read_tetriminos(int fd)
 	int		i;
 	int		nb_lines;
 	char	*line;
-	int		ret_gnl;
 
 	nb_lines = 0;
-	while ((ret_gnl = get_next_line(fd, &line)) > 0 && ++nb_lines)
+	while ((i = get_next_line(fd, &line)) > 0 && ++nb_lines)
 	{
 		i = 0;
 		nb_hash = (nb_lines % 5) == 1 ? 0 : nb_hash;
 		while (line[i])
 		{
 			if (!(nb_lines % 5) || i > 3 || (line[i] != '.' && line[i] != '#'))
+				ft_strdel(&line);
+			if (line == NULL)
 				return (0);
 			nb_hash = line[i++] == '#' ? ++nb_hash : nb_hash;
 		}
-		free(line);
+		ft_strdel(&line);
 		if ((!(nb_lines % 5) && nb_hash != 4) || (nb_lines % 5 && i < 4))
 			return (0);
 	}
-	if (ret_gnl == -1 || !(nb_lines % 5) || nb_lines < 4 || nb_lines > 129)
+	if (i == -1 || !(nb_lines % 5) || nb_lines < 4 || nb_lines > 129)
 		return (0);
 	return (nb_hash == 4 ? 1 : 0);
 }
