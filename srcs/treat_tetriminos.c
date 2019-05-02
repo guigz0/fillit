@@ -6,7 +6,7 @@
 /*   By: cmouyeme <cmouyeme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 20:11:14 by cmouyeme          #+#    #+#             */
-/*   Updated: 2019/05/02 22:12:14 by cmouyeme         ###   ########.fr       */
+/*   Updated: 2019/05/02 22:45:25 by cmouyeme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,10 @@ int		count_used_lines(char *tetri)
 	return (len);
 }
 
-char	**treat_tetriminos(char	*tetri)
+char	**treat_tetriminos(char *tetri)
 {
 	char	**tab;
 	int		i;
-	int		j;
 	int		index;
 	int		size_line;
 
@@ -67,13 +66,12 @@ char	**treat_tetriminos(char	*tetri)
 		if (tetri[i] == '#')
 		{
 			size_line = count_charofline(tetri, i);
-			j = i;
 			if (i)
-				while (tetri[j - 1] != '\n' && tetri[j])
-					j--;
-			if (!(tab[index++] = ft_strsub(tetri, j, 4)))
+				while (tetri[i - 1] != '\n' && tetri[i])
+					i--;
+			if (!(tab[index++] = ft_strsub(tetri, i, 4)))
 				return (NULL);
-			i = j + 4;
+			i += 4;
 		}
 		i++;
 	}
@@ -81,14 +79,15 @@ char	**treat_tetriminos(char	*tetri)
 	return (tab);
 }
 
-int main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
-	int		fd = 0;
+	int		fd;
 	char	tetri[21 + 1];
 	int		ret;
 	int		i;
-	char 	**result;
+	char	**result;
 
+	fd = 0;
 	if (argc == 2)
 		fd = open(argv[1], O_RDONLY);
 	else
@@ -106,7 +105,7 @@ int main(int argc, char **argv)
 		ft_putchar('\n');
 		ft_strdel(&result[i]);
 		i++;
-	}	
+	}
 	free(result);
 	close(fd);
 	return (0);
