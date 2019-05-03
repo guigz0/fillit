@@ -6,12 +6,13 @@
 /*   By: cmouyeme <cmouyeme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 20:11:14 by cmouyeme          #+#    #+#             */
-/*   Updated: 2019/05/03 17:29:57 by cmouyeme         ###   ########.fr       */
+/*   Updated: 2019/05/03 18:10:39 by cmouyeme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <stdlib.h>
+#include <stdio.h>
 #include "../libft/libft.h"
 
 int		count_used_lines(char *tetri)
@@ -57,6 +58,6 @@ char	**treat_tetriminos(char *tetri)
 		}
 		i++;
 	}
-	tab[count_used_lines(tetri)] = 0;
+	tab[index] = 0;
 	return (tab);
 }

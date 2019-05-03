@@ -6,7 +6,7 @@
 /*   By: cmouyeme <cmouyeme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 23:09:16 by gdalard           #+#    #+#             */
-/*   Updated: 2019/05/02 23:20:26 by gdalard          ###   ########.fr       */
+/*   Updated: 2019/05/03 18:27:24 by cmouyeme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,6 @@
 int		read_tetriminos(int fd);
 char	**treat_tetriminos(char *tetri);
 int		check(char **block);
+int		chop_tetriminos(int fd, char ***tab);
 
 #endif
