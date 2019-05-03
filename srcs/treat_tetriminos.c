@@ -6,7 +6,7 @@
 /*   By: cmouyeme <cmouyeme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 20:11:14 by cmouyeme          #+#    #+#             */
-/*   Updated: 2019/05/03 17:22:56 by cmouyeme         ###   ########.fr       */
+
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ char	**treat_tetriminos(char *tetri)
 	{
 		if (tetri[i] == '#')
 		{
+
 			if (i)
 				while ((tetri[i - 1] && tetri[i - 1] != '\n') && tetri[i])
 					i--;
@@ -60,3 +61,4 @@ char	**treat_tetriminos(char *tetri)
 	tab[count_used_lines(tetri)] = 0;
 	return (tab);
 }
+
