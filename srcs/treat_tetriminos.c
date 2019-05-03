@@ -6,7 +6,7 @@
 /*   By: cmouyeme <cmouyeme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 20:11:14 by cmouyeme          #+#    #+#             */
-/*   Updated: 2019/05/02 22:45:25 by cmouyeme         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:02:37 by gdalard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../libft/libft.h"
-
+/*
 int		count_charofline(char *tetri, int i)
 {
 	int		size_line;
@@ -29,7 +29,7 @@ int		count_charofline(char *tetri, int i)
 	}
 	return (size_line);
 }
-
+*/
 int		count_used_lines(char *tetri)
 {
 	int		len;
@@ -55,7 +55,6 @@ char	**treat_tetriminos(char *tetri)
 	char	**tab;
 	int		i;
 	int		index;
-	int		size_line;
 
 	if (!(tab = (char**)malloc(sizeof(char *) * (count_used_lines(tetri) + 1))))
 		return (NULL);
@@ -65,7 +64,35 @@ char	**treat_tetriminos(char *tetri)
 	{
 		if (tetri[i] == '#')
 		{
-			size_line = count_charofline(tetri, i);
+			while (i && tetri[i - 1] != '\n' && tetri[i])
+				i--;
+			if (!(tab[index++] = ft_strsub(tetri, i, 4)))
+				return (NULL);
+			i += 4;
+		}
+		i++;
+	}
+	tab[count_used_lines(tetri)] = 0;
+	return (tab);
+}
+/*
+char	**treat_tetriminos(char *tetri)
+{
+	char	**tab;
+	int		i;
+	int		index;
+//	int		size_line;
+
+
+	if (!(tab = (char**)malloc(sizeof(char *) * (count_used_lines(tetri) + 1))))
+		return (NULL);
+	i = 0;
+	index = 0;
+	while (tetri[i])
+	{
+		if (tetri[i] == '#')
+		{
+//			size_line = count_charofline(tetri, i);
 			if (i)
 				while (tetri[i - 1] != '\n' && tetri[i])
 					i--;
@@ -109,4 +136,4 @@ int		main(int argc, char **argv)
 	free(result);
 	close(fd);
 	return (0);
-}
+}*/

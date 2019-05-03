@@ -6,7 +6,7 @@
 /*   By: cmouyeme <cmouyeme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 22:55:27 by cmouyeme          #+#    #+#             */
-/*   Updated: 2019/05/02 22:41:50 by gdalard          ###   ########.fr       */
+/*   Updated: 2019/05/02 23:13:08 by gdalard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "../libft/libft.h"
 #include <unistd.h>
 #include <stdio.h>
-#include <fcntl.h>
+//#include <fcntl.h>
 
 int		read_tetriminos(int fd)
 {
@@ -45,7 +45,7 @@ int		read_tetriminos(int fd)
 		return (0);
 	return (nb_hash == 4 ? 1 : 0);
 }
-
+/*
 int		main(int ac, char **av)
 {
 	int		fd;
@@ -59,4 +59,4 @@ int		main(int ac, char **av)
 	printf("%d\n", read_tetriminos(fd));
 	close(fd);
 	return (0);
-}
+}*/

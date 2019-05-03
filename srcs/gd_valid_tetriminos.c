@@ -6,47 +6,42 @@
 /*   By: gdalard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:54:54 by gdalard           #+#    #+#             */
-/*   Updated: 2019/05/02 22:42:27 by gdalard          ###   ########.fr       */
+/*   Updated: 2019/05/03 17:05:56 by gdalard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-
-int		check(char block[3][5])
+int		hash_around(char **block, int x, int y)
 {
-	int		stick;
+	int		nb;
+
+	nb = 0;
+	if (y && block[x][y - 1] == '#')
+		nb++;
+	if (block[x][y + 1] && block[x][y + 1] == '#')
+		nb++;
+	if (x && block[x - 1][y] == '#')
+		nb++;
+	if (block[x + 1] && block[x + 1][y] == '#')
+		nb++;
+	return (nb);
+}
+
+int		check(char **block)
+{
+	int		link;
 	int		x;
 	int		y;
 
-	stick = 0;
-	x = 0;
-	y = 0;
-	while (x < 2)
+	link = 0;
+	x = -1;
+	while (block[++x])
 	{
-		printf("block[x] : %s\n", block[x]);
-		while (y < 3 && stick < 3)
-		{
+		y = -1;
+		while (++y < 4)
 			if (block[x][y] == '#')
-			{
-				if (block[x][y + 1] == '#')
-					stick++;
-				else if (block[x + 1][y] == '#')
-					stick++;
-			}
-			y++;
-		}
-		x++;
-		y = 0;
+				link += hash_around(block, x, y);
 	}
-	return (stick);
-}
-
-int		main(void)
-{
-	char block[3][5] = 
-	{{ '.' , '#' , '.' , '.' , '\0'},
-	{ '#' , '#' , '#' , '.' , '\0'},
-	{ '\0' , '\0' , '\0' , '\0' , '\0'}};
-	printf("%d\n", check(block));
+	if (link == 6 || link == 8)
+		return (1);
 	return (0);
 }
