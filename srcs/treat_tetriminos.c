@@ -6,13 +6,12 @@
 /*   By: cmouyeme <cmouyeme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 20:11:14 by cmouyeme          #+#    #+#             */
-/*   Updated: 2019/05/03 18:10:39 by cmouyeme         ###   ########.fr       */
+/*   Updated: 2019/05/07 18:33:11 by cmouyeme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <stdlib.h>
-#include <stdio.h>
 #include "../libft/libft.h"
 
 int		count_used_lines(char *tetri)
@@ -35,29 +34,30 @@ int		count_used_lines(char *tetri)
 	return (len);
 }
 
-char	**treat_tetriminos(char *tetri)
+int		treat_tetriminos(char *tetri, char ***tab)
 {
-	char	**tab;
 	int		i;
 	int		index;
+	char	**result;
 
-	if (!(tab = (char**)malloc(sizeof(char *) * (count_used_lines(tetri) + 1))))
-		return (NULL);
+	if (!(result = (char**)malloc(sizeof(char *) * (count_used_lines(tetri) + 1))))
+		return (0);
 	i = 0;
 	index = 0;
 	while (tetri[i])
-	{
+	{ 
 		if (tetri[i] == '#')
 		{
 			if (i)
 				while ((tetri[i - 1] && tetri[i - 1] != '\n') && tetri[i])
 					i--;
-			if (!(tab[index++] = ft_strsub(tetri, i, 4)))
-				return (NULL);
+			if (!(result[index++] = ft_strsub(tetri, i, 4)))
+				return (0);
 			i += 4;
 		}
 		i++;
 	}
-	tab[index] = 0;
-	return (tab);
+	result[index] = 0;
+	*tab = result;
+	return (1);
 }
