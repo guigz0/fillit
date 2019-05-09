@@ -6,11 +6,11 @@
 /*   By: gdalard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 20:54:54 by gdalard           #+#    #+#             */
-/*   Updated: 2019/05/03 17:05:56 by gdalard          ###   ########.fr       */
+/*   Updated: 2019/05/09 17:42:37 by gdalard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		hash_around(char **block, int x, int y)
+int		calc_adjacent_hash(char **block, int x, int y)
 {
 	int		nb;
 
@@ -39,7 +39,7 @@ int		check(char **block)
 		y = -1;
 		while (++y < 4)
 			if (block[x][y] == '#')
-				link += hash_around(block, x, y);
+				link += calc_adjacent_hash(block, x, y);
 	}
 	if (link == 6 || link == 8)
 		return (1);

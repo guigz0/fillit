@@ -6,7 +6,7 @@
 /*   By: cmouyeme <cmouyeme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 20:11:14 by cmouyeme          #+#    #+#             */
-/*   Updated: 2019/05/07 18:33:11 by cmouyeme         ###   ########.fr       */
+/*   Updated: 2019/05/09 19:30:33 by gdalard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include "../libft/libft.h"
 
-int		count_used_lines(char *tetri)
+static int	count_used_lines(char *tetri)
 {
 	int		len;
 	int		i;
@@ -34,18 +34,19 @@ int		count_used_lines(char *tetri)
 	return (len);
 }
 
-int		treat_tetriminos(char *tetri, char ***tab)
+int			treat_tetriminos(char *tetri, char ***tab)
 {
 	int		i;
 	int		index;
 	char	**result;
 
-	if (!(result = (char**)malloc(sizeof(char *) * (count_used_lines(tetri) + 1))))
-		return (0);
 	i = 0;
 	index = 0;
+	*tab = NULL;
+	if (!(result = (char**)malloc(sizeof(char *) * (count_used_lines(tetri) + 1))))
+		return (0);
 	while (tetri[i])
-	{ 
+	{
 		if (tetri[i] == '#')
 		{
 			if (i)
