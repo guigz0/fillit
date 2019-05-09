@@ -6,7 +6,7 @@
 /*   By: cmouyeme <cmouyeme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 23:09:16 by gdalard           #+#    #+#             */
-/*   Updated: 2019/05/09 18:05:11 by gdalard          ###   ########.fr       */
+/*   Updated: 2019/05/09 21:42:10 by gdalard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define FILLIT_H
 
 int		read_tetriminos(int fd);
-int		treat_tetriminos(char *tetri, char ***tab);
+char	**treat_tetriminos(char *tetri);
 int		check(char **block);
-int		chop_tetriminos(int fd, int nb_tetri);
+char	***chop_tetriminos(char ***tab, int fd, int nb_tetri);
 
 #endif
