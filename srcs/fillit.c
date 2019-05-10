@@ -6,7 +6,7 @@
 /*   By: cmouyeme <cmouyeme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 22:54:17 by gdalard           #+#    #+#             */
-/*   Updated: 2019/05/07 18:32:58 by cmouyeme         ###   ########.fr       */
+/*   Updated: 2019/05/07 19:43:41 by cmouyeme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,34 +22,42 @@ int		chop_tetriminos(int fd)
 	char	buff[21 + 1];
 	int		ret;
 	int		i;
+	int		x;
 	char	***tab;
 
 	i = 0;
+	x = 0;
 	ret = 0;
-	if (!(tab = (char***)malloc(sizeof(char**) * (27))))
+	if (!(tab = (char***)malloc(sizeof(char**) * (2))))
 		return (0);
 	while ((ret = read(fd, buff, 21) && ret != -1))
 	{
 		buff[21] = '\0';
 		if (!(treat_tetriminos(buff, &tab[i])))
 			return (0);
-		/*while (tab[i])
-		{
-			while (tab[i][x])
-			{
-				ft_putendl(tab[i][x]);
-				x++;
-			}
-			ft_putendl("---------");
-			i++;
-		}*/
 		if (!(check(tab[i])))
 			return (0);
 		i++;
 	}
 	if (ret == -1)
 		return (0);
-	tab[i] = 0;
+	ft_putnbr(i);
+	ft_putendl("");
+	ft_putendl("---------");
+	tab[i] = NULL;
+	i = 0;
+	while (tab[i])
+	{
+		x = 0;
+		while (tab[i][x])
+		{
+			ft_putendl(tab[i][x]);
+			x++;
+		}
+		ft_putendl("---------");
+		i++;
+	}
+	// printf("%s\n", tab[2][5]);
 	return (1);
 }
 
@@ -57,6 +65,7 @@ int		main(int ac, char **av)
 {
 	int		fd;
 
+	fd = 0;
 	if (ac != 2)
 		return (0);
 	fd = open(av[1], O_RDONLY);
