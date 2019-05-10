@@ -6,7 +6,7 @@
 /*   By: cmouyeme <cmouyeme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 22:54:17 by gdalard           #+#    #+#             */
-/*   Updated: 2019/05/10 14:24:45 by gdalard          ###   ########.fr       */
+/*   Updated: 2019/05/10 16:27:27 by gdalard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int		main(int ac, char **av)
 	int		nb_tetri;
 	char	***tab;
 	char	**board;
+	int		n = 0;
 
 	board = NULL;
 	if (ac != 2)
@@ -95,7 +96,9 @@ int		main(int ac, char **av)
 		if ((tab = chop_tetriminos(fd, nb_tetri)))
 		{
 			print_tab(tab);
-//			set_tetriminos(create_board(board, 4), tab);
+			set_tetriminos(create_board(board, 4), tab);
+			while (board[n])
+				ft_putendl(board[n++]);
 			exit(EXIT_SUCCESS);
 		}
 	}
