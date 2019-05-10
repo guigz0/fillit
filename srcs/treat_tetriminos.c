@@ -6,7 +6,7 @@
 /*   By: cmouyeme <cmouyeme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 20:11:14 by cmouyeme          #+#    #+#             */
-/*   Updated: 2019/05/09 21:48:26 by gdalard          ###   ########.fr       */
+/*   Updated: 2019/05/10 13:59:10 by gdalard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ char		**treat_tetriminos(char *tetri)
 	{
 		if (tetri[i] == '#')
 		{
-			if (i)
-				while ((tetri[i - 1] && tetri[i - 1] != '\n') && tetri[i])
+			while (i && tetri[i - 1] != '\n' && tetri[i])
 					i--;
 			if (!(tab[index++] = ft_strsub(tetri, i, 4)))
 				return (NULL);
