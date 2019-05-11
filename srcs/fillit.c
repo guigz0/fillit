@@ -6,7 +6,7 @@
 /*   By: cmouyeme <cmouyeme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 22:54:17 by gdalard           #+#    #+#             */
-/*   Updated: 2019/05/10 17:42:27 by gdalard          ###   ########.fr       */
+/*   Updated: 2019/05/11 22:07:22 by gdalard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,35 +16,6 @@
 #include "libft.h"
 #include <stdlib.h>
 #include <stdio.h>
-
-void	manage_board(char	**board, char***tab)
-{
-	int		i = 0;
-	int		n = 0;
-
-	board = create_board(board, 4);
-	while (tab[i])
-		set_tetriminos(board, tab[i++], 0, 0);
-	while (board[n])
-		ft_putendl(board[n++]);
-}
-
-void	print_tab(char ***tab)
-{
-	int		i;
-	int		j;
-
-	i = 0;
-	while (tab[i])
-	{
-		j = 0;
-		while (tab[i][j])
-			ft_putendl(tab[i][j++]);
-		if (tab[i + 1])
-			ft_putchar('\n');
-		i++;
-	}
-}
 
 void	free_all(char ***tab, int index)
 {
@@ -89,6 +60,31 @@ char	***chop_tetriminos(int fd, int nb_tetri)
 	return (tab);
 }
 
+int		min_n(int nb_tetri)
+{
+	int		n;
+	int		min_block;
+
+	n = 2;
+	min_block = nb_tetri * 4;
+	while (n * n < min_block)
+		n++;
+	return (n);
+}
+
+void	do_fillit(char **board, char ***tab, int nb_tetri)
+{
+	int		n;
+
+	n = min_n(nb_tetri);
+	board = create_board(board, n);
+	while (!fillit(board, tab, 0, nb_tetri))
+		board = create_board(board, ++n);
+	n = 0;
+	while (board[n])
+		ft_putendl(board[n++]);
+}
+
 int		main(int ac, char **av)
 {
 	int		fd;
@@ -106,10 +102,8 @@ int		main(int ac, char **av)
 		fd = open(av[1], O_RDONLY);
 		if ((tab = chop_tetriminos(fd, nb_tetri)))
 		{
-			manage_board(board, tab);
-//			print_tab(tab);
-			//board = create_board(board, 4);
-	//		set_tetriminos(board, tab, 0, 0);
+			do_fillit(board, tab, nb_tetri);
+			close(fd);
 			exit(EXIT_SUCCESS);
 		}
 	}
