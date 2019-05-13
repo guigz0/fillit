@@ -6,13 +6,14 @@
 /*   By: gdalard <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 12:36:49 by gdalard           #+#    #+#             */
-/*   Updated: 2019/05/11 22:07:19 by gdalard          ###   ########.fr       */
+/*   Updated: 2019/05/13 19:02:45 by gdalard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stdio.h>
 #include "fillit.h"
+#include "../libft/libft.h"
 
 char	**reset_tetriminos(char **board, int k)
 {
@@ -49,10 +50,11 @@ int		can_set_tetriminos(char **board, char **tab, t_pos pos)
 		{
 			if (tab[i][j] == '#')
 			{
-				if (sj != 100 && (!board[pos.x + i]
+				if (sj != 100 && (!board[pos.x + i] || j - sj < 0
 						|| board[pos.x + i][j - sj] != '.'))
 					return (0);
-				if (sj == 100 && board[pos.x][pos.y] != '.')
+				if (sj == 100 && (!board[pos.x] || !board[pos.x][pos.y]
+						|| board[pos.x][pos.y] != '.'))
 					return (0);
 				else if (sj == 100)
 					sj = j - pos.y;
@@ -123,24 +125,24 @@ char	**create_board(char **board, int size)
 
 	n = 0;
 	y = 0;
+	//printf("size = %d\n", size);
+	while (board && board[n])
+		free(board[n++]);
 	if (board)
-	{
-		while (board[n])
-			free(board[n++]);
 		free(board);
-	}
 	n = 0;
-	if (!(board = (char**)malloc(sizeof(char*) * size + 1)))
+	if (!(board = (char**)malloc(sizeof(char*) * (size + 1))))
 		return (NULL);
-	board[size] = 0;
+	board[size] = NULL;
 	while (n < size)
 	{
-		if (!(board[n] = (char*)malloc(sizeof(char) * size + 1)))
+		if (!(board[n] = (char*)malloc(sizeof(char) * (size + 1))))
 			return (NULL);
 		while (y < size)
 			board[n][y++] = '.';
 		y = 0;
 		board[n++][size] = '\0';
 	}
+	//printf("board = %c\n", board[2][0]);
 	return (board);
 }

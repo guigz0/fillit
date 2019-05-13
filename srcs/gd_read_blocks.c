@@ -6,7 +6,7 @@
 /*   By: cmouyeme <cmouyeme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 22:55:27 by cmouyeme          #+#    #+#             */
-/*   Updated: 2019/05/10 14:37:45 by gdalard          ###   ########.fr       */
+/*   Updated: 2019/05/13 19:02:42 by gdalard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int			read_tetriminos(int fd)
 	int		i;
 	int		nb_lines;
 	char	*line;
-
+	
+	i = 0;
 	nb_lines = 0;
 	while ((i = get_next_line(fd, &line)) > 0 && ++nb_lines)
 	{

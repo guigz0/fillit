@@ -6,7 +6,7 @@
 /*   By: cmouyeme <cmouyeme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 22:54:17 by gdalard           #+#    #+#             */
-/*   Updated: 2019/05/11 22:07:22 by gdalard          ###   ########.fr       */
+/*   Updated: 2019/05/13 19:02:48 by gdalard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,12 @@ int		min_n(int nb_tetri)
 	return (n);
 }
 
-void	do_fillit(char **board, char ***tab, int nb_tetri)
+void	do_fillit(char ***tab, int nb_tetri)
 {
+	char	**board;
 	int		n;
 
+	board = NULL;
 	n = min_n(nb_tetri);
 	board = create_board(board, n);
 	while (!fillit(board, tab, 0, nb_tetri))
@@ -83,6 +85,10 @@ void	do_fillit(char **board, char ***tab, int nb_tetri)
 	n = 0;
 	while (board[n])
 		ft_putendl(board[n++]);
+	n = 0;
+	while (board[n])
+		free(board[n++]);
+	free(board);
 }
 
 int		main(int ac, char **av)
@@ -90,9 +96,7 @@ int		main(int ac, char **av)
 	int		fd;
 	int		nb_tetri;
 	char	***tab;
-	char	**board;
 
-	board = NULL;
 	if (ac != 2)
 		return (0);
 	fd = open(av[1], O_RDONLY);
@@ -102,7 +106,7 @@ int		main(int ac, char **av)
 		fd = open(av[1], O_RDONLY);
 		if ((tab = chop_tetriminos(fd, nb_tetri)))
 		{
-			do_fillit(board, tab, nb_tetri);
+			do_fillit(tab, nb_tetri);
 			close(fd);
 			exit(EXIT_SUCCESS);
 		}
