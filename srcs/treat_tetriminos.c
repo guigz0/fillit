@@ -6,14 +6,14 @@
 /*   By: cmouyeme <cmouyeme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 14:31:14 by cmouyeme          #+#    #+#             */
-/*   Updated: 2019/05/13 17:01:37 by gdalard          ###   ########.fr       */
+/*   Updated: 2019/05/13 19:24:03 by cmouyeme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "../libft/libft.h"
 
-int	count_used_lines(char *tetri)
+int		count_used_lines(char *tetri)
 {
 	int		len;
 	int		i;
@@ -33,7 +33,7 @@ int	count_used_lines(char *tetri)
 	return (len);
 }
 
-char		**treat_tetriminos(char *tetri)
+char	**treat_tetriminos(char *tetri)
 {
 	int		i;
 	int		index;
