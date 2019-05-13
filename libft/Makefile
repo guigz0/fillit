@@ -6,7 +6,7 @@
 #    By: gdalard <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/08 15:42:25 by gdalard           #+#    #+#              #
-#    Updated: 2019/04/14 18:34:39 by gdalard          ###   ########.fr        #
+#    Updated: 2019/05/13 21:22:42 by cmouyeme         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,14 +83,14 @@ FLAGS = -Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME):
-	gcc $(FLAGS) -c $(SRC)
-	ar rc $(NAME) $(OBJ)
+	@gcc $(FLAGS) -c $(SRC)
+	@ar rc $(NAME) $(OBJ)
 
 clean:
-	rm -f $(OBJ)
+	@rm -f $(OBJ)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 
