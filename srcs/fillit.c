@@ -5,113 +5,140 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmouyeme <cmouyeme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/02 22:54:17 by gdalard           #+#    #+#             */
-/*   Updated: 2019/05/13 19:22:09 by cmouyeme         ###   ########.fr       */
+/*   Created: 2019/05/10 12:36:49 by gdalard           #+#    #+#             */
+/*   Updated: 2019/05/14 19:45:37 by gdalard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
-#include <unistd.h>
-#include <fcntl.h>
-#include "libft.h"
 #include <stdlib.h>
-#include <stdio.h>
+#include "fillit.h"
 
-void	free_all(char ***tab, int index)
+char	**reset_tetriminos(char **board, int k)
 {
-	int		lines;
-
-	while (index >= 0)
-	{
-		lines = 0;
-		while (tab[index][lines])
-			free(tab[index][lines++]);
-		free(tab[index--]);
-	}
-	free(tab);
-}
-
-char	***chop_tetriminos(int fd, int nb_tetri)
-{
-	char	buff[21 + 1];
-	int		ret;
 	int		i;
-	char	***tab;
+	int		j;
 
 	i = 0;
-	ret = 0;
-	if (!(tab = (char***)malloc(sizeof(char**) * (nb_tetri + 1))))
-		return (NULL);
-	tab[nb_tetri] = 0;
-	while ((ret = read(fd, buff, 21) && ret != -1))
+	while (board[i])
 	{
-		buff[21] = '\0';
-		if ((tab[i] = treat_tetriminos(buff)))
-			if (check(tab[i]))
-			{
-				i++;
-				continue ;
-			}
-		free_all(tab, i);
-		return (NULL);
-	}
-	if (ret == -1)
-		return (NULL);
-	return (tab);
-}
-
-int		min_n(int nb_tetri)
-{
-	int		n;
-	int		min_block;
-
-	n = 2;
-	min_block = nb_tetri * 4;
-	while (n * n < min_block)
-		n++;
-	return (n);
-}
-
-void	do_fillit(char ***tab, int nb_tetri)
-{
-	char	**board;
-	int		n;
-
-	board = NULL;
-	n = min_n(nb_tetri);
-	board = create_board(board, n);
-	while (!fillit(board, tab, 0, nb_tetri))
-		board = create_board(board, ++n);
-	n = 0;
-	while (board[n])
-		ft_putendl(board[n++]);
-	n = 0;
-	while (board[n])
-		free(board[n++]);
-	free(board);
-}
-
-int		main(int ac, char **av)
-{
-	int		fd;
-	int		nb_tetri;
-	char	***tab;
-
-	if (ac != 2)
-		return (0);
-	fd = open(av[1], O_RDONLY);
-	if ((nb_tetri = read_tetriminos(fd)))
-	{
-		close(fd);
-		fd = open(av[1], O_RDONLY);
-		if ((tab = chop_tetriminos(fd, nb_tetri)))
+		j = 0;
+		while (board[i][j])
 		{
-			do_fillit(tab, nb_tetri);
-			close(fd);
-			exit(EXIT_SUCCESS);
+			if (board[i][j] == k + 'A')
+				board[i][j] = '.';
+			j++;
+		}
+		i++;
+	}
+	return (board);
+}
+
+int		can_set_tetriminos(char **board, char **tab, t_pos pos)
+{
+	int		i;
+	int		j;
+	int		sj;
+
+	i = -1;
+	sj = 100;
+	while (tab[++i])
+	{
+		j = -1;
+		while (tab[i][++j])
+		{
+			if (tab[i][j] == '#')
+			{
+				if (sj != 100 && (!board[pos.x + i] || j - sj < 0
+						|| board[pos.x + i][j - sj] != '.'))
+					return (0);
+				if (sj == 100 && (!board[pos.x] || !board[pos.x][pos.y]
+						|| board[pos.x][pos.y] != '.'))
+					return (0);
+				else if (sj == 100)
+					sj = j - pos.y;
+			}
 		}
 	}
-	ft_putendl("error");
-	close(fd);
+	return (1);
+}
+
+char	**set_tetriminos(char **board, char **tab, t_pos pos, int k)
+{
+	int		i;
+	int		j;
+	int		sj;
+
+	i = -1;
+	sj = 100;
+	while (tab[++i])
+	{
+		j = -1;
+		while (tab[i][++j])
+		{
+			if (tab[i][j] == '#')
+			{
+				if (sj == 100)
+				{
+					board[pos.x][pos.y] = k + 'A';
+					sj = j - pos.y;
+				}
+				else
+					board[pos.x + i][j - sj] = k + 'A';
+			}
+		}
+	}
+	return (board);
+}
+
+int		fillit(char **board, char ***tab, int i, int nb_tetri)
+{
+	t_pos	pos;
+
+	pos.x = 0;
+	if (i == nb_tetri)
+		return (1);
+	while (board[pos.x])
+	{
+		pos.y = 0;
+		while (board[pos.x][pos.y])
+		{
+			if (can_set_tetriminos(board, tab[i], pos))
+			{
+				board = set_tetriminos(board, tab[i], pos, i);
+				if (fillit(board, tab, i + 1, nb_tetri))
+					return (1);
+				board = reset_tetriminos(board, i);
+			}
+			pos.y++;
+		}
+		pos.x++;
+	}
 	return (0);
+}
+
+char	**create_board(char **board, int size)
+{
+	int		n;
+	int		y;
+
+	n = 0;
+	y = 0;
+	while (board && board[n])
+		free(board[n++]);
+	if (board)
+		free(board);
+	n = 0;
+	if (!(board = (char**)malloc(sizeof(char*) * (size + 1))))
+		return (NULL);
+	board[size] = NULL;
+	while (n < size)
+	{
+		if (!(board[n] = (char*)malloc(sizeof(char) * (size + 1))))
+			return (NULL);
+		while (y < size)
+			board[n][y++] = '.';
+		y = 0;
+		board[n++][size] = '\0';
+	}
+	return (board);
 }

@@ -6,7 +6,7 @@
 /*   By: cmouyeme <cmouyeme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 23:09:16 by gdalard           #+#    #+#             */
-/*   Updated: 2019/05/11 21:50:48 by gdalard          ###   ########.fr       */
+/*   Updated: 2019/05/14 20:35:11 by gdalard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 # define FILLIT_H
 
 int				read_tetriminos(int fd);
-char			**treat_tetriminos(char *tetri);
-int				check(char **block);
 char			***chop_tetriminos(int fd, int nb_tetri);
+int				check(char *block);
 char			**create_board(char **board, int size);
 int				fillit(char **board, char ***tab, int i, int nb_tetri);
 

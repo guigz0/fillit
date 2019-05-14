@@ -1,11 +1,23 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: gdalard <marvin@42.fr>                     +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/05/14 19:01:01 by gdalard           #+#    #+#              #
+#    Updated: 2019/05/14 19:54:12 by gdalard          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME := fillit
 
 SRCS := srcs/fillit.c \
-	   srcs/gd_read_blocks.c \
-	   srcs/gd_valid_tetriminos.c \
-	   srcs/get_next_line.c \
-	   srcs/set_tetriminos.c \
-	   srcs/treat_tetriminos.c
+	   srcs/main.c \
+	   srcs/read_file.c \
+	   srcs/check_file.c \
+	   srcs/treat_file.c \
+	   srcs/get_next_line.c
 
 OBJDIR := objs
 
@@ -30,7 +42,6 @@ $(OBJDIR)/%.o: srcs/%.c | $(OBJDIR)
 
 $(LIB):
 	make -C libft
-
 clean:
 	rm -rf $(OBJDIR)
 	make -C libft clean

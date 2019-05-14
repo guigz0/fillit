@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gd_read_blocks.c                                   :+:      :+:    :+:   */
+/*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmouyeme <cmouyeme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 22:55:27 by cmouyeme          #+#    #+#             */
-/*   Updated: 2019/05/13 19:25:59 by cmouyeme         ###   ########.fr       */
+/*   Updated: 2019/05/14 19:41:48 by gdalard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include "../libft/libft.h"
+#include "libft.h"
 
 static int	calc_nb_tetriminos(int nb_lines)
 {
