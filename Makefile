@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gdalard <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: cmouyeme <cmouyeme@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/14 19:01:01 by gdalard           #+#    #+#              #
-#    Updated: 2019/05/14 19:54:12 by gdalard          ###   ########.fr        #
+#    Updated: 2019/05/15 17:27:55 by cmouyeme         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,4 +58,4 @@ debug: re
 test: CFLAGS := -Wall
 test: all
 
-.PHONY: all clean re fclean
+.PHONY: all clean fclean re
